@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convite - Heverton & Marina</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#1a0a2e; font-family:Georgia,serif; overflow-x:hidden; }
+
+  /* ENVELOPE */
+  #envelope-screen {
+    position:fixed; inset:0; display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    background:#1a0a2e; z-index:200; transition:opacity 0.8s;
+  }
+  #envelope-wrap { position:relative; width:min(88vw,400px); cursor:pointer; }
+  #envelope-wrap img { width:100%; display:block; border-radius:8px; }
+  #lacre-btn {
+    position:absolute; top:47%; left:50%; transform:translate(-50%,-50%);
+    width:26%; aspect-ratio:1; background:transparent; border:none;
+    cursor:pointer; border-radius:50%; z-index:10;
+  }
+
+  /* CONVITE scroll */
+  #convite-screen { display:none; }
+  .page { position:relative; width:100%; line-height:0; }
+  .page img { width:100%; display:block; }
+
+  /* HOTSPOTS */
+  .hs {
+    position:absolute;
+    left:0; width:48%;
+    background:transparent;
+    border:none;
+    cursor:pointer;
+    z-index:50;
+    padding:0;
+  }
+
+  /* MÚSICA */
+  #music-btn {
+    position:fixed; bottom:20px; right:16px;
+    background:rgba(0,0,0,0.6); border:1px solid #e8c97a;
+    color:#e8c97a; border-radius:50%; width:48px; height:48px;
+    font-size:1.3rem; cursor:pointer; z-index:300;
+    display:none; align-items:center; justify-content:center;
+  }
+
+  /* MODAL */
+  #modal {
+    position:fixed; inset:0; background:rgba(0,0,0,0.88);
+    display:none; align-items:center; justify-content:center; z-index:400;
+  }
+  #modal.open { display:flex; }
+  #modal-box {
+    position:relative; width:min(92vw,420px);
+    max-height:92vh; overflow-y:auto; border-radius:12px;
+  }
+  #modal-box img { width:100%; display:block; border-radius:12px; }
+
+  /* PIX AREA */
+  #pix-area {
+    position:absolute; bottom:12%; left:50%; transform:translateX(-50%);
+    width:72%; display:flex; flex-direction:column; align-items:center; gap:10px;
+    background:#e8dcc8; border-radius:14px; padding:14px 16px;
+  }
+  #pix-label {
+    color:#2d4a2d; font-size:.78rem; letter-spacing:2px; text-transform:uppercase; font-weight:bold;
+  }
+  #pix-key {
+    background:#f5ede0; color:#2d4a2d !important;
+    border:1px solid #b5a080; border-radius:10px;
+    padding:10px 14px; text-align:center; width:100%;
+    font-family:monospace; font-size:1rem; letter-spacing:2px; font-weight:bold;
+    -webkit-text-fill-color:#2d4a2d;
+  }
+  #copy-btn {
+    background:#2d4a2d; color:#f5ede0; border:none;
+    padding:10px 28px; border-radius:20px; font-size:.9rem;
+    font-weight:bold; cursor:pointer; width:100%;
+  }
+  #copy-msg {
+    color:#2d4a2d; font-size:.85rem; display:none;
+    font-weight:bold; letter-spacing:1px;
+  }
+  #close-modal {
+    position:absolute; top:10px; right:12px;
+    background:rgba(0,0,0,0.6); color:#fff; border:none;
+    width:36px; height:36px; border-radius:50%; font-size:1.3rem;
+    cursor:pointer; line-height:36px; text-align:center;
+  }
+</style>
+</head>
+<body>
+
+<audio id="audio" loop preload="auto">
+  <source src="https://archive.org/download/marcelo-jeneci-pra-sonhar-com-letra/Marcelo%20Jeneci%20-%20Pra%20sonhar%20%28com%20letra%29.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ENVELOPE -->
+<div id="envelope-screen">
+  <div id="envelope-wrap">
+    <img src="https://i.ibb.co/VpHYccX3/C-pia-de-Site-Convite-abertura-boho-2.png" alt="Envelope">
+    <button id="lacre-btn" onclick="abrirConvite()"></button>
+  </div>
+</div>
+
+<!-- CONVITE -->
+<div id="convite-screen">
+
+  <!-- Página 1 -->
+  <div class="page"><img src="https://i.ibb.co/YFK4FSfL/1.png" alt="Página 1"></div>
+  <!-- Página 2 -->
+  <div class="page"><img src="https://i.ibb.co/zTwFVdDy/2.png" alt="Página 2"></div>
+  <!-- Página 3 -->
+  <div class="page"><img src="https://i.ibb.co/HTPqSLtd/3.png" alt="Página 3"></div>
+
+  <!-- Página 4 — ÍCONES -->
+  <div class="page" style="position:relative; display:block;">
+    <img src="https://i.ibb.co/FLzFcg0L/4.png" alt="Página 4">
+
+    <!-- CONFIRMAÇÃO DE PRESENÇA -->
+    <button class="hs" style="top:3%; height:23%;"
+      onclick="window.open('https://wa.link/8umfix','_blank')"></button>
+
+    <!-- PRESENTES -->
+    <button class="hs" style="top:27%; height:23%;"
+      onclick="abrirPresentes()"></button>
+
+    <!-- LOCALIZAÇÃO -->
+    <button class="hs" style="top:51%; height:23%;"
+      onclick="window.open('https://maps.app.goo.gl/pnuJiZQRmaSxZW45A','_blank')"></button>
+
+    <!-- SITE -->
+    <button class="hs" style="top:75%; height:23%;"
+      onclick="window.open('https://sites.icasei.com.br/hevertonmarina/home','_blank')"></button>
+  </div>
+
+  <!-- Página 5 — sem hotspots -->
+  <div class="page"><img src="https://i.ibb.co/kgvmzRMn/5.png" alt="Página 5"></div>
+
+</div>
+
+<button id="music-btn" onclick="toggleMusic()">🔊</button>
+
+<!-- MODAL PRESENTES -->
+<div id="modal">
+  <div id="modal-box">
+    <img src="https://i.ibb.co/394pnHMb/Heverton-e-Marina-site-final-2.png" alt="Presentes">
+    <div id="pix-area">
+      <div id="pix-label">Chave Pix</div>
+      <div id="pix-key">11 94135-1334</div>
+      <button id="copy-btn" onclick="copiarPix()">📋 Copiar Chave Pix</button>
+      <span id="copy-msg">✅ Copiado com sucesso!</span>
+    </div>
+    <button id="close-modal" onclick="fecharModal()">✕</button>
+  </div>
+</div>
+
+<script>
+  const audio = document.getElementById('audio');
+  let playing = false;
+
+  function abrirConvite() {
+    const env = document.getElementById('envelope-screen');
+    env.style.opacity = '0';
+    audio.currentTime = 30;
+    audio.play().then(() => {
+      playing = true;
+      document.getElementById('music-btn').textContent = '🔊';
+    }).catch(e => console.log(e));
+    setTimeout(() => {
+      env.style.display = 'none';
+      document.getElementById('convite-screen').style.display = 'block';
+      document.getElementById('music-btn').style.display = 'flex';
+    }, 800);
+  }
+
+  function toggleMusic() {
+    const btn = document.getElementById('music-btn');
+    if (playing) { audio.pause(); playing=false; btn.textContent='🎵'; }
+    else { audio.play(); playing=true; btn.textContent='🔊'; }
+  }
+
+  function abrirPresentes() {
+    document.getElementById('modal').classList.add('open');
+  }
+  function fecharModal() {
+    document.getElementById('modal').classList.remove('open');
+  }
+  function copiarPix() {
+    navigator.clipboard.writeText('11 94135-1334').then(() => {
+      const msg = document.getElementById('copy-msg');
+      msg.style.display = 'block';
+      setTimeout(() => msg.style.display = 'none', 2500);
+    });
+  }
+</script>
+</body>
+</html>
